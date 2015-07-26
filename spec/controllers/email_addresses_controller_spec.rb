@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe EmailAddressesController, type: :controller do
 
   let(:valid_attributes) {
-    { address: 'bob@example.com' }
+    { address: 'bob@example.com', person_id: 1 }
   }
 
   let(:invalid_attributes) {
-    { address: nil }
+    { address: nil, person_id: nil }
   }
 
   let(:valid_session) { {} }
