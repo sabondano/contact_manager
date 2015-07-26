@@ -52,4 +52,10 @@ describe 'the person view', type: :feature do
     end
   end
 
+  it 'deletes a phone number' do
+    first('li').click_link('delete')
+    expect(current_path).to eq(person_path(person))
+    expect(page).to have_content('delete', count: 1)
+  end
+
 end
