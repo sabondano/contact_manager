@@ -90,6 +90,38 @@ describe 'the person view', type: :feature do
       expect(page).to have_content('bobby@example.com')
     end
 
+    it 'has links to edit email addresses' do
+      person.email_addresses.each do |email_address|
+        expect(page).to have_link('edit', href: edit_email_address_path(email_address))
+      end
+    end
+
+    it 'edits a email address' do
+      email = person.email_addresses.first
+      old_email = email.address
+
+      within('#email-addresses') do
+        first(:link, 'edit').click
+      end
+      page.fill_in('Address', with: 'bobby@yahoo.com')
+      page.click_button('Update Email address')
+      expect(current_path).to eq(person_path(person))
+      expect(page).to have_content('bobby@yahoo.com')
+      expect(page).to_not have_content(old_email)
+    end
+
+    it 'has links to delete email addresses' do
+      person.email_addresses.each do |email_address|
+        expect(page).to have_link('delete', href: email_address_path(email_address))
+      end
+    end
+
+    it 'deletes an email address' do
+      first(:link, 'delete').click
+      expect(current_path).to eq(person_path(person))
+      expect(page).to have_content('delete', count: 1)
+    end
+
   end
 
 end
