@@ -77,6 +77,11 @@ describe 'the person view', type: :feature do
       end
     end
 
+    it 'has an add email address link' do
+      page.click_link('new_email_address')
+      expect(current_path).to eq(new_email_address_path)
+    end
+
   end
 
 end
